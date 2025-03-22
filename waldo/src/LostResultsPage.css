@@ -1,0 +1,85 @@
+.losttResultsPage {
+    background-color: #FFFFFF;
+    color: #000000;
+    text-align: center;
+    box-sizing: border-box;
+    margin: auto;
+    width: 100vw;
+    height: 100vh;
+    /* background-position: center; */
+    /* padding: 1% 0%; */
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    justify-content: center;
+    /* align-content: center; */
+    align-items: center;
+    justify-items: center;
+    overflow: hidden;
+}
+
+html, body {
+    overflow-x: hidden;
+    /* padding: -1%; */
+}
+
+#root {
+    overflow: hidden;
+    margin: auto;
+    scroll-behavior: none;
+}
+
+.results {
+    border: 7px solid #0D4072;
+    border-radius: 24px;
+    width: 80vw;
+    max-width: 700px;
+    height: 508px;
+    margin: 2%;
+    position: absolute;
+    background-color: #FFFFFF;
+    z-index: 2;
+}
+
+.losttResultsPage h1 {
+    color: #D11635;
+    margin-bottom: 1%;
+}
+
+.losttResultsPage span {
+    color: #0D4072;
+    font-weight: bolder;
+    font-size: large;
+}
+
+.losttResultsPage a {
+    color: #000000;
+    background-color: #ffffff;
+    border: 5px solid #D11635;
+    border-radius: 100px;
+    padding: 12px 50px;
+    position: relative;
+    top: 11px;
+}
+
+.losttResultsPage img {
+    position: absolute;
+    rotate: -8deg;
+    z-index: 2;
+    right: -97px;
+    top: 342px;
+    transform: translateY(-186px);
+    width: 203px;
+}
+
+
+.redStripee {
+    width: 100vw;
+    height: 80px;
+    margin-bottom: 80px;
+    background-color: #D11635;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+    top: 210px;
+}
