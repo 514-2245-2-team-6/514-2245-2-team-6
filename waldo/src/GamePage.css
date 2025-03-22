@@ -2,11 +2,11 @@
   margin: 0;
   box-sizing: border-box;
   padding: 0;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
+  /* position: relative; */
   overflow: hidden;
   background-color: #FFFFFF;
-  display: flex;
   flex-wrap: nowrap;
 }
 
@@ -22,14 +22,15 @@
   border-left: 8px solid #0D4072;
   background-color: #FFFFFF;
   float: right;
-  position: absolute;
+  position: relative;
   top: 0;
   right: 0;
   height: 100vh;
-  min-height: fit-content;
+  /* min-height: fit-content; */
   text-align: center;
-  display: inline-table;
-  align-self: stretch;
+  /* display: inline-table; */
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 .waldoImg {
@@ -42,9 +43,7 @@
   left: 0;
   width: 71.31%;
   height: 100vh;
-  /* min-height: fit-content; */
   align-self: stretch;
-
 }
 
 .aboutPage h1 {
@@ -106,10 +105,10 @@
 
 .yourPickedWaldo {
   border-radius: 19px;
-  width: 265px;
+  width: 88%;
   height: 207px;
   border: 6px solid #0D4072;
-  object-fit: contain;
+  object-fit: cover;
 }
 
 .gamePanel a {
