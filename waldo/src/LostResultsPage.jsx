@@ -8,7 +8,7 @@ function LostResultsPage() {
     <div className='losttResultsPage'>
       <section className='results'>
         <h1>Your Results</h1>
-        <h2>Great Job, You Found Waldo! Congrats!!</h2>
+        <h2>Better Luck Next Time, You Didn't Find Waldo!</h2>
         <p>Your Score: <span>350</span></p>
         <p>Your Streak: 6</p>
         <p>Time Taken: 8 seconds</p>
