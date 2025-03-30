@@ -7,7 +7,7 @@ import { Code, Function, Runtime } from "aws-cdk-lib/aws-lambda";
 
 const functionDir = path.dirname(fileURLToPath(import.meta.url));
 
-export const sayHelloFunctionHandler = defineFunction(
+export const getCroppedFaceFunctionHandler = defineFunction(
   (scope) =>
     new Function(scope, "getCroppedFace", {
       handler: "index.lambda_handler",
