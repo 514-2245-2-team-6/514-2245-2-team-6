@@ -1,3 +1,12 @@
+
+/**
+ * This class encapsulates the logic for invoking Lambda functions using an API Gateway base URL.
+ *
+ * Example usage:
+ * const API_GATEWAY_BASE_URL = 'https://your-api-gateway-id.execute-api.us-east-1.amazonaws.com/dev';
+ * const lambdaExecutor = new LambdaExecutor(API_GATEWAY_BASE_URL);
+ * const result = await lambdaExecutor.updateCurrentImage(imageData);
+ */
 class LambdaExecutor {
   constructor(apiGatewayBaseUrl) {
     this.apiGatewayBaseUrl = apiGatewayBaseUrl;
