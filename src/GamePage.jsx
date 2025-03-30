@@ -1,12 +1,14 @@
 import './GamePage.css'
-import placeHolderWaldo from './assets/waldoPlaceholderImg.jpeg'
-import placeHolderWaldoBackground from './assets/PlaceholderBackgroundImg.jpeg'
 import { Link } from "react-router-dom";
+
+const CURRENT_CROWD_IMAGE = "https://projectawscrowdimages3bucket.s3.us-east-1.amazonaws.com/current-image.png";
+const CROPPED_FACE_IMAGE = "https://projectawscrowdimages3bucket.s3.us-east-1.amazonaws.com/cropped-face-image.png";
+
 
 function GamePage() {
   return (
     <div className='aboutPage'>
-      <img className='waldoImg' src={placeHolderWaldoBackground} alt="Background image of a blurred out waldo crowd you are looking at"></img>
+      <img className='waldoImg' src={CURRENT_CROWD_IMAGE} alt="A crowd of faces"></img>
       <section className='gamePanel'>
         <h1>Time Left</h1>
         <section className='timer'>
@@ -18,10 +20,10 @@ function GamePage() {
         <div className='redStripe'></div>
         <h2>Where's Waldo??</h2>
         <section>
-          <img className='waldoimg' src={placeHolderWaldo} alt="Face of the 'waldo' you are trying to find"></img>
+          <img className='waldoimg' src={CROPPED_FACE_IMAGE} alt="Face of the 'waldo' you are trying to find"></img>
         </section>
         <h3>Your Chosen Waldo:</h3>
-        <img className='yourPickedWaldo' src={placeHolderWaldo} alt="Face of the 'waldo' you picked by clicking"></img>
+        <img className='yourPickedWaldo' src={CROPPED_FACE_IMAGE} alt="Face of the 'waldo' you picked by clicking"></img>
         {/* if correct brought to you won results page otherwise other page */}
         <Link to='/winner' title='Click to confrim your waldo'>Confrim</Link>
       </section>

@@ -4,9 +4,9 @@ import GamePage from "./GamePage"; // Import your GamePage component
 import WinResultsPage from "./WinResultsPage";
 import LostResultsPage from "./LostResultsPage";
 import "./App.css";
-import placeHolderWaldo from "./assets/waldoPlaceholderImg.jpeg";
-import placeHolderWaldoBackground from "./assets/PlaceholderBackgroundImg.jpeg";
 
+const CURRENT_CROWD_IMAGE = "https://projectawscrowdimages3bucket.s3.us-east-1.amazonaws.com/current-image.png";
+const CROPPED_FACE_IMAGE = "https://projectawscrowdimages3bucket.s3.us-east-1.amazonaws.com/cropped-face-image.png";
 function App() {
   return (
     <Router>
@@ -18,8 +18,8 @@ function App() {
             <div className="landingPage">
               <img
                 className="backgroundImg"
-                src={placeHolderWaldoBackground}
-                alt="Background image of a blurred out waldo crowd you are looking at"
+                src={CURRENT_CROWD_IMAGE}
+                alt="Blurred crowd of people"
               />
               <h1>Welcome To The Where's Waldo Game!!</h1>
               <p>
@@ -29,7 +29,7 @@ function App() {
               <section>
                 <img
                   className="waldoimg"
-                  src={placeHolderWaldo}
+                  src={CROPPED_FACE_IMAGE}
                   alt="Face of the 'waldo' you are trying to find"
                 />
                 <div className="magnifyingBlockOne"></div>
