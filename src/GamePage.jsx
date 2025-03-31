@@ -84,18 +84,20 @@ function GamePage() {
 
   return (
     <div className='aboutPage'>
-      <img
-				key={currentCrowdImage}
-				className='waldoImg'
-				src={`${currentCrowdImage}?${new Date().getTime()}`}
-				alt="A crowd of faces"
-				onClick={(event) => {
-					const clickCoordinates = getCoordinatesFromOnClickEvent(event);
-					const isCorrect = didClickCorrectFace(clickCoordinates);
-					routeToResultsPage(isCorrect);
-				}}
-				role='button'
-			></img>
+			<section className="waldoImgContainer">
+				<img
+					key={currentCrowdImage}
+					className='waldoImg'
+					src={`${currentCrowdImage}?${new Date().getTime()}`}
+					alt="A crowd of faces"
+					onClick={(event) => {
+						const clickCoordinates = getCoordinatesFromOnClickEvent(event);
+						const isCorrect = didClickCorrectFace(clickCoordinates);
+						routeToResultsPage(isCorrect);
+					}}
+					role='button'
+				></img>
+			</section>
       <section className='gamePanel'>
         <h1>Time Left</h1>
         <section className='timer'>
@@ -103,8 +105,10 @@ function GamePage() {
           <p>Don't worry, you have forever</p>
         </section>
         {/* <p className='margin'><span>Score:</span> N/A | <span>Streak:</span> 5</p> */}
-        <div className='redStripe'></div>
-        <div className='redStripe'></div>
+				<section className="stripeSeperator">
+					<div className='redStripe'></div>
+					<div className='redStripe'></div>
+				</section>
         <h2>Where's Waldo??</h2>
         <section>
           <img

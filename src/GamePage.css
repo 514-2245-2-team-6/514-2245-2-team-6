@@ -1,52 +1,45 @@
 .aboutPage {
-	display: flex;
-	flex-direction: row;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
   margin: 0;
-  box-sizing: border-box;
   padding: 0;
   width: 100vw;
   height: 100vh;
-  /* position: relative; */
   overflow: hidden;
   background-color: #FFFFFF;
+  box-sizing: border-box;
   flex-wrap: nowrap;
 }
 
-.aboutPage::after {
-  content: "";
-  display: table;
-  clear: both;
+.waldoImgContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.waldoImg {
+  width: 100%;
+  max-height: 100vh;
+  height: auto;
 }
 
 .gamePanel {
   width: auto;
   border-left: 8px solid #0D4072;
   background-color: #FFFFFF;
-  position: relative;
-  top: 0;
-  right: 0;
   height: 100vh;
-  /* min-height: fit-content; */
   text-align: center;
-  /* display: inline-table; */
-  overflow-y: scroll;
-  overflow-x: hidden;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
-.waldoImg {
-  height: auto; /* Set the desired width */
-	max-width: 80%; /* Ensure it doesn't exceed the container */
-	max-height: 100vh;
-	object-fit: contain; /* Ensures the image doesn't stretch or get cut off */
-
-  /* object-fit: cover; */
-  /* align-self: stretch; */
-}
-
-.aboutPage h1 {
+.gamePanel h1 {
   color: #D11635;
-  margin: 11px;
   font-size: xx-large;
+  margin: 11px;
 }
 
 .timer {
@@ -57,17 +50,17 @@
   margin: auto;
 }
 
+.timer p {
+  color: #000000;
+  margin: 0;
+  position: relative;
+  top: 40px;
+}
+
 .time {
   color: #0D4072 !important;
   font-weight: bold;
   font-size: 23px;
-}
-
-.timer p {
-  color: #000000;
-  margin: 0;
-  top: 40px;
-  position: relative;
 }
 
 .gamePanel p {
@@ -82,11 +75,17 @@
   font-weight: bold;
 }
 
+.stripeSeperator {
+	margin-top: 15px;
+	margin-bottom: 10px;
+}
+
 .redStripe {
-  max-width: 309px;
   width: auto;
-  margin: 11px 0px;
+  max-width: 309px;
+  margin: 5px 0;
   background-color: #D11635;
+  height: 4px; /* Added height for stripe visibility */
 }
 
 .gamePanel h2 {
@@ -100,10 +99,12 @@
   margin: 11px;
 }
 
-.yourPickedWaldo {
+.waldoimg {
+  width: 100%;
+  max-width: 350px; /* Optional: make the image responsive */
+  height: auto;
+  margin: 10px auto;
   border-radius: 19px;
-  width: 88%;
-  height: 207px;
   border: 6px solid #0D4072;
   object-fit: cover;
 }
@@ -113,12 +114,11 @@
   background-color: #ffffff;
   border: 5px solid #D11635;
   border-radius: 100px;
-  margin: 3%;
   padding: 12px 50px;
-  position: relative;
-  /* top: 50px; */
+  margin: 3%;
   display: inline-block;
-
+  text-decoration: none; /* Prevents text underline */
+  position: relative;
 }
 
 .gamePanel a:hover {
@@ -128,3 +128,5 @@
 .gamePanel a:active {
   border: 5px solid #D11635;
 }
+
+/* Optional: Media Query for small screen responsiveness */
