@@ -3,8 +3,8 @@ import LambdaExecutor from "../LambdaFunctions";
 import placeholderCurrentCrowdImage from "../assets/PlaceholderBackgroundImg.jpeg";
 import placeholderCroppedFaceImage from "../assets/waldoPlaceholderImg.jpeg";
 import GameDataContext from "./GameDataContext";
+import { API_GATEWAY_BASE_URL } from "./ApiGatewayBaseUrl";
 
-const API_GATEWAY_BASE_URL = 'https://wpfc84y29j.execute-api.us-east-1.amazonaws.com/prod';
 const CURRENT_CROWD_IMAGE = "https://projectawscrowdimages3bucket.s3.us-east-1.amazonaws.com/current-image.png";
 const CROPPED_FACE_IMAGE = "https://projectawscrowdimages3bucket.s3.us-east-1.amazonaws.com/cropped-face-image.png";
 
