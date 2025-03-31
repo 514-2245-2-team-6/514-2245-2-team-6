@@ -1,14 +1,70 @@
+import { useContext } from 'react';
 import './GamePage.css'
 import { Link } from "react-router-dom";
-
-const CURRENT_CROWD_IMAGE = "https://projectawscrowdimages3bucket.s3.us-east-1.amazonaws.com/current-image.png";
-const CROPPED_FACE_IMAGE = "https://projectawscrowdimages3bucket.s3.us-east-1.amazonaws.com/cropped-face-image.png";
-
+import GameDataContext from "./GameData/GameDataContext";
+import LambdaExecutor from './LambdaFunctions';
 
 function GamePage() {
+	const {
+		currentCrowdImage,
+		croppedFaceImage,
+		faceBoundingBox,
+		API_GATEWAY_BASE_URL,
+	} = useContext(GameDataContext);
+
+	const getCoordinatesFromOnClickEvent = (event) => {
+		const x = event.clientX;
+		const y = event.clientY;
+
+		// Get element clicked
+		const element = event.target;
+
+		// Get percent from left of element clicked
+		const percentFromLeft = (x - element.offsetLeft) / element.offsetWidth;
+
+		// Get percent from top of element clicked
+		const percentFromTop = (y - element.offsetTop) / element.offsetHeight;
+
+		return {
+			left: percentFromLeft,
+			top: percentFromTop
+		}
+	}
+
+	const didClickCorrectFace = (clickCoordinates) => {
+		const body = {
+			...clickCoordinates,
+			bounding_box: faceBoundingBox
+		}
+
+		const lambdaExecutor = new LambdaExecutor(API_GATEWAY_BASE_URL);
+
+		const result = lambdaExecutor.verifyFaceSelection(body);
+
+		return result.isCorrect;
+	}
+
+	const routeToResultsPage = (isCorrect) => {
+		if (isCorrect) {
+			window.location.href = '/winner';
+		} else {
+			window.location.href = '/lost';
+		}
+	}
+
   return (
     <div className='aboutPage'>
-      <img className='waldoImg' src={CURRENT_CROWD_IMAGE} alt="A crowd of faces"></img>
+      <img
+				className='waldoImg'
+				src={currentCrowdImage}
+				alt="A crowd of faces"
+				onClick={(event) => {
+					const clickCoordinates = getCoordinatesFromOnClickEvent(event);
+					const isCorrect = didClickCorrectFace(clickCoordinates);
+					routeToResultsPage(isCorrect);
+				}}
+				role='button'
+			></img>
       <section className='gamePanel'>
         <h1>Time Left</h1>
         <section className='timer'>
@@ -20,10 +76,10 @@ function GamePage() {
         <div className='redStripe'></div>
         <h2>Where's Waldo??</h2>
         <section>
-          <img className='waldoimg' src={CROPPED_FACE_IMAGE} alt="Face of the 'waldo' you are trying to find"></img>
+          <img className='waldoimg' src={croppedFaceImage} alt="Face of the 'waldo' you are trying to find"></img>
         </section>
         <h3>Your Chosen Waldo:</h3>
-        <img className='yourPickedWaldo' src={CROPPED_FACE_IMAGE} alt="Face of the 'waldo' you picked by clicking"></img>
+        <img className='yourPickedWaldo' src={croppedFaceImage} alt="Face of the 'waldo' you picked by clicking"></img>
         {/* if correct brought to you won results page otherwise other page */}
         <Link to='/winner' title='Click to confrim your waldo'>Confrim</Link>
       </section>

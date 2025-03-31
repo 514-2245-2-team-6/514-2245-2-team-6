@@ -1,3 +1,4 @@
+import {API} from "aws-amplify";
 
 /**
  * This class encapsulates the logic for invoking Lambda functions using an API Gateway base URL.
@@ -12,15 +13,13 @@ class LambdaExecutor {
     this.apiGatewayBaseUrl = apiGatewayBaseUrl;
   }
 
-  async invokeLambda(endpoint, method = 'POST', body = null) {
+  async invokeLambda(endpoint, body = null) {
     try {
-      const response = await fetch(`${this.apiGatewayBaseUrl}/${endpoint}`, {
-        method: method,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: body ? JSON.stringify(body) : null,
-      });
+			const response = await API.post(
+				"WaldoAPI",
+				`/${endpoint}`,
+				{ body }
+			);
 
       if (!response.ok) {
         throw new Error(`Error: ${response.statusText}`);
@@ -36,17 +35,17 @@ class LambdaExecutor {
 
   // Simple method to call the specific Lambda function (e.g., updateCurrentImage)
   async updateCurrentImage(imageData) {
-    return this.invokeLambda('updateCurrentImage', 'POST', imageData);
+    return this.invokeLambda('updateCurrentImage', imageData);
   }
 
   // Another example: calling getRandomCroppedFace Lambda function
   async getRandomCroppedFace() {
-    return this.invokeLambda('getRandomCroppedFace', 'POST');
+    return this.invokeLambda('getRandomCroppedFace');
   }
 
   // Another example: calling verifyFaceSelection Lambda function
   async verifyFaceSelection(selectionData) {
-    return this.invokeLambda('verifyFaceSelection', 'POST', selectionData);
+    return this.invokeLambda('verifyFaceSelection', selectionData);
   }
 }
 

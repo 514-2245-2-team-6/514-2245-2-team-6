@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "paths": {
+    "/getRandomCroppedFace": {
+      "name": "/getRandomCroppedFace",
+      "lambdaFunction": "waldoappe292bc43",
+      "permissions": {
+        "setting": "open"
+      }
+    }
+  }
+}

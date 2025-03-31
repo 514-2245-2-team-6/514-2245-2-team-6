@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-waldoapp-dev-d748f-authRole",
+      "UnauthRoleArn": "arn:aws:iam::982081052963:role/amplify-waldoapp-dev-d748f-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::982081052963:role/amplify-waldoapp-dev-d748f-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-waldoapp-dev-d748f-deployment",
+      "UnauthRoleName": "amplify-waldoapp-dev-d748f-unauthRole",
+      "StackName": "amplify-waldoapp-dev-d748f",
+      "StackId": "arn:aws:cloudformation:us-east-1:982081052963:stack/amplify-waldoapp-dev-d748f/39034680-0dd0-11f0-a826-0efff1173fbf",
+      "AmplifyAppId": "d2goxhmhjqqo1b"
+    },
+    "categories": {
+      "function": {
+        "waldoappe292bc43": {}
+      }
+    }
+  }
+}
