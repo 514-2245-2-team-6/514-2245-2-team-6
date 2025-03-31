@@ -1,5 +1,3 @@
-import {API} from "aws-amplify";
-
 /**
  * This class encapsulates the logic for invoking Lambda functions using an API Gateway base URL.
  *
@@ -15,15 +13,20 @@ class LambdaExecutor {
 
   async invokeLambda(endpoint, body = null) {
     try {
-			const response = await API.post(
-				"WaldoAPI",
-				`/${endpoint}`,
-				{ body }
-			);
+			const response = await fetch(`${this.apiGatewayBaseUrl}/${endpoint}`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: body ? JSON.stringify(body) : null
+			});
+
 
       if (!response.ok) {
         throw new Error(`Error: ${response.statusText}`);
       }
+
+			console.log("Response:", response);
 
       return await response.json();
     }

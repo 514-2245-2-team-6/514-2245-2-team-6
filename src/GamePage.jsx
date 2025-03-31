@@ -25,6 +25,14 @@ function GamePage() {
 		// Get percent from top of element clicked
 		const percentFromTop = (y - element.offsetTop) / element.offsetHeight;
 
+		console.log({
+			x,
+			y,
+			element,
+			percentFromLeft,
+			percentFromTop
+		})
+
 		return {
 			left: percentFromLeft,
 			top: percentFromTop
@@ -40,6 +48,11 @@ function GamePage() {
 		const lambdaExecutor = new LambdaExecutor(API_GATEWAY_BASE_URL);
 
 		const result = lambdaExecutor.verifyFaceSelection(body);
+
+		console.log({
+			body,
+			result
+		})
 
 		return result.isCorrect;
 	}
@@ -68,10 +81,10 @@ function GamePage() {
       <section className='gamePanel'>
         <h1>Time Left</h1>
         <section className='timer'>
-          <p className='time'>22</p>
-          <p>Seconds</p>
+          {/* <p className='time'>22</p> */}
+          <p>Don't worry, you have forever</p>
         </section>
-        <p className='margin'><span>Score:</span> 300 | <span>Streak:</span> 5</p>
+        {/* <p className='margin'><span>Score:</span> N/A | <span>Streak:</span> 5</p> */}
         <div className='redStripe'></div>
         <div className='redStripe'></div>
         <h2>Where's Waldo??</h2>
@@ -79,9 +92,9 @@ function GamePage() {
           <img className='waldoimg' src={croppedFaceImage} alt="Face of the 'waldo' you are trying to find"></img>
         </section>
         <h3>Your Chosen Waldo:</h3>
-        <img className='yourPickedWaldo' src={croppedFaceImage} alt="Face of the 'waldo' you picked by clicking"></img>
+        {/* <img className='yourPickedWaldo' src={croppedFaceImage} alt="Face of the 'waldo' you picked by clicking"></img> */}
         {/* if correct brought to you won results page otherwise other page */}
-        <Link to='/winner' title='Click to confrim your waldo'>Confrim</Link>
+        {/* <Link to='/winner' title='Click to confrim your waldo'>Confrim</Link> */}
       </section>
     </div>
   )

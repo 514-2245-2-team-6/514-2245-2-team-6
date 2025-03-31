@@ -9,10 +9,10 @@ function LostResultsPage() {
       <section className='results'>
         <h1>Your Results</h1>
         <h2>Better Luck Next Time, You Didn't Find Waldo!</h2>
-        <p>Your Score: <span>350</span></p>
-        <p>Your Streak: 6</p>
-        <p>Time Taken: 8 seconds</p>
-        <p>Accuracy: 100%</p>
+        {/* <p>Your Score: <span>350</span></p> */}
+        {/* <p>Your Streak: 6</p> */}
+        {/* <p>Time Taken: 8 seconds</p> */}
+        {/* <p>Accuracy: 100%</p> */}
         <Link to='/' title='Click to play again'>Play Again</Link>
         <img src={waldo} alt='clipart of waldo'></img>
       </section>
