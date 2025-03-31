@@ -9,11 +9,14 @@ function LandingPage() {
 		croppedFaceImage,
 	} = useContext(GameDataContext);
 
+	console.log({croppedFaceImage});
+
 	return (
 		<div className="landingPage">
 			<img
+				key={currentCrowdImage}
 				className="backgroundImg"
-				src={currentCrowdImage}
+				src={`${currentCrowdImage}?${new Date().getTime()}`}
 				alt="Blurred crowd of people"
 			/>
 			<h1>Welcome To The Where's Waldo Game!!</h1>
@@ -23,8 +26,9 @@ function LandingPage() {
 			<p>You have 30 seconds...</p>
 			<section>
 				<img
+					key={croppedFaceImage}
 					className="waldoimg"
-					src={croppedFaceImage}
+					src={`${croppedFaceImage}?${new Date().getTime()}`}
 					alt="Face of the 'waldo' you are trying to find"
 				/>
 				<div className="magnifyingBlockOne"></div>

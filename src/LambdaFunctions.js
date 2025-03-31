@@ -13,12 +13,20 @@ class LambdaExecutor {
 
   async invokeLambda(endpoint, body = null) {
     try {
-			const response = await fetch(`${this.apiGatewayBaseUrl}/${endpoint}`, {
+			const requestBody = body ? JSON.stringify(body) : null;
+			const url = `${this.apiGatewayBaseUrl}/${endpoint}`;
+			const headers = {
+				'Content-Type': 'application/json',
+			}
+
+			console.log('Request body:', requestBody);
+			console.log('Request URL:', url);
+			console.log('Request headers:', headers);
+
+			const response = await fetch(url, {
 				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				body: body ? JSON.stringify(body) : null
+				headers: headers,
+				body: requestBody
 			});
 
 
