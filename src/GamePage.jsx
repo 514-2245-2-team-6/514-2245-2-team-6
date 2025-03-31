@@ -1,15 +1,17 @@
 import { useContext } from 'react';
 import './GamePage.css'
 import GameDataContext from "./GameData/GameDataContext";
-import LambdaExecutor from './LambdaFunctions';
+// import LambdaExecutor from './LambdaFunctions';
+import { useNavigate } from 'react-router-dom';
 
 function GamePage() {
 	const {
 		currentCrowdImage,
 		croppedFaceImage,
 		faceBoundingBox,
-		API_GATEWAY_BASE_URL,
+		// API_GATEWAY_BASE_URL,
 	} = useContext(GameDataContext);
+	const navigate = useNavigate(); // Hook to access history
 
 	const getCoordinatesFromOnClickEvent = (event) => {
 		const x = event.clientX;
@@ -74,9 +76,9 @@ function GamePage() {
 
 	const routeToResultsPage = (isCorrect) => {
 		if (isCorrect) {
-			window.location.href = '/winner';
+			navigate('/winner'); // Navigate to /winner without page reload
 		} else {
-			window.location.href = '/lost';
+			navigate('/lost'); // Navigate to /lost without page reload
 		}
 	}
 

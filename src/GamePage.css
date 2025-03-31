@@ -1,4 +1,6 @@
 .aboutPage {
+	display: flex;
+	flex-direction: row;
   margin: 0;
   box-sizing: border-box;
   padding: 0;
@@ -17,11 +19,9 @@
 }
 
 .gamePanel {
-  max-width: 28%;
   width: auto;
   border-left: 8px solid #0D4072;
   background-color: #FFFFFF;
-  float: right;
   position: relative;
   top: 0;
   right: 0;
@@ -34,16 +34,13 @@
 }
 
 .waldoImg {
-  float: left;
-  margin: 0;
-  padding: 0;
-  position: absolute;
-  object-fit: cover;
-  top: 0;
-  left: 0;
-  width: 71.31%;
-  height: 100vh;
-  align-self: stretch;
+  height: auto; /* Set the desired width */
+	max-width: 80%; /* Ensure it doesn't exceed the container */
+	max-height: 100vh;
+	object-fit: contain; /* Ensures the image doesn't stretch or get cut off */
+
+  /* object-fit: cover; */
+  /* align-self: stretch; */
 }
 
 .aboutPage h1 {
