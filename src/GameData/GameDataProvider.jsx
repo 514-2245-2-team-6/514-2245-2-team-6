@@ -4,9 +4,7 @@ import placeholderCurrentCrowdImage from "../assets/PlaceholderBackgroundImg.jpe
 import placeholderCroppedFaceImage from "../assets/waldoPlaceholderImg.jpeg";
 import GameDataContext from "./GameDataContext";
 import { API_GATEWAY_BASE_URL } from "./ApiGatewayBaseUrl";
-
-const CURRENT_CROWD_IMAGE = "https://projectawscrowdimages3bucket.s3.us-east-1.amazonaws.com/current-image.png";
-const CROPPED_FACE_IMAGE = "https://projectawscrowdimages3bucket.s3.us-east-1.amazonaws.com/cropped-face-image.png";
+import { CROPPED_FACE_IMAGE_URL, CURRENT_CROWD_IMAGE_URL } from "./aws-constants";
 
 
 export const GameDataProvider = ({ children }) => {
@@ -21,8 +19,8 @@ export const GameDataProvider = ({ children }) => {
 			const result = await lambdaExecutor.getRandomCroppedFace();
 			const boundingBox = JSON.parse(result['bounding_box']);
 
-			setCurrentCrowdImage(CURRENT_CROWD_IMAGE);
-			setCroppedFaceImage(CROPPED_FACE_IMAGE);
+			setCurrentCrowdImage(CURRENT_CROWD_IMAGE_URL);
+			setCroppedFaceImage(CROPPED_FACE_IMAGE_URL);
 			setFaceBoundingBox(boundingBox);
 			setIsLoading(false);
 		}
