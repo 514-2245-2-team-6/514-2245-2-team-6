@@ -3,8 +3,7 @@ import LambdaExecutor from "../LambdaFunctions";
 import placeholderCurrentCrowdImage from "../assets/PlaceholderBackgroundImg.jpeg";
 import placeholderCroppedFaceImage from "../assets/waldoPlaceholderImg.jpeg";
 import GameDataContext from "./GameDataContext";
-import { API_GATEWAY_BASE_URL } from "./ApiGatewayBaseUrl";
-import { CROPPED_FACE_IMAGE_URL, CURRENT_CROWD_IMAGE_URL } from "./aws-constants";
+import { API_GATEWAY_BASE_URL, CROPPED_FACE_IMAGE_URL, CURRENT_CROWD_IMAGE_URL } from "./aws-constants";
 
 
 export const GameDataProvider = ({ children }) => {
