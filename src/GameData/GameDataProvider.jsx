@@ -7,10 +7,18 @@ import { API_GATEWAY_BASE_URL, CROPPED_FACE_IMAGE_URL, CURRENT_CROWD_IMAGE_URL }
 
 
 export const GameDataProvider = ({ children }) => {
+	const SECONDS_GIVEN = 30;
+	const TIMER_THRESHOLD = 5;
+	const MAX_SCORE = 10;
+
 	const [isLoading, setIsLoading] = useState(true);
 	const [currentCrowdImage, setCurrentCrowdImage] = useState(placeholderCurrentCrowdImage);
 	const [croppedFaceImage, setCroppedFaceImage] = useState(placeholderCroppedFaceImage);
 	const [faceBoundingBox, setFaceBoundingBox] = useState(undefined);
+	const [score, setScore] = useState(0);
+	const [accuracy, setAccuracy] = useState(0);
+	const [secondsRemaining, setSecondsRemaining] = useState(SECONDS_GIVEN);
+	const [streak, setStreak] = useState(0);
 
 	useEffect(() => {
 		async function setStateAfterAPICall() {
@@ -31,15 +39,15 @@ export const GameDataProvider = ({ children }) => {
 		<GameDataContext.Provider
 			value={
 				{
-					isLoading,
-					setIsLoading,
-					currentCrowdImage,
-					setCurrentCrowdImage,
-					croppedFaceImage,
-					setCroppedFaceImage,
-					faceBoundingBox,
-					setFaceBoundingBox,
-					API_GATEWAY_BASE_URL
+					isLoading, setIsLoading,
+					currentCrowdImage, setCurrentCrowdImage,
+					croppedFaceImage, setCroppedFaceImage,
+					faceBoundingBox, setFaceBoundingBox,
+					score, setScore,
+					accuracy, setAccuracy,
+					streak, setStreak,
+					secondsRemaining, setSecondsRemaining,
+					SECONDS_GIVEN, TIMER_THRESHOLD, MAX_SCORE
 				}
 			}
 		>

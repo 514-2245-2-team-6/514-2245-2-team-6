@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import './GamePage.css'
 import GameDataContext from "./GameData/GameDataContext";
 // import LambdaExecutor from './LambdaFunctions';
@@ -9,9 +9,39 @@ function GamePage() {
 		currentCrowdImage,
 		croppedFaceImage,
 		faceBoundingBox,
-		// API_GATEWAY_BASE_URL,
+		score, setScore,
+		setAccuracy,
+		streak, setStreak,
+		secondsRemaining, setSecondsRemaining,
+		SECONDS_GIVEN, TIMER_THRESHOLD, MAX_SCORE
 	} = useContext(GameDataContext);
+
 	const navigate = useNavigate(); // Hook to access history
+
+	const [timerInterval, setTimerInterval] = useState(null);
+
+	// Starts the timer
+	useEffect(() => {
+		console.log('Starting timer...');
+
+		setSecondsRemaining(SECONDS_GIVEN);
+		const timerInterval = setInterval(
+			() => {
+				console.log('Seconds remaining:', secondsRemaining);
+
+				setSecondsRemaining(secondsRemaining => {
+					if ((secondsRemaining-1) === 0) {
+						console.log('Time\'s up!');
+						navigate('/results');
+						clearInterval(timerInterval);
+					};
+					return secondsRemaining - 1
+				});
+			},
+			1000
+		);
+		setTimerInterval(timerInterval);
+	}, []);
 
 	const getCoordinatesFromOnClickEvent = (event) => {
 		const x = event.clientX;
@@ -74,12 +104,71 @@ function GamePage() {
 		}
 	}
 
-	const routeToResultsPage = (isCorrect) => {
+	const calculateScore = (clickCoordinates, secondsRemaining, setAccuracy, setStreak) => {
+		const isCorrect = didClickCorrectFace(clickCoordinates);
+		let horizontalDistanceAway = 0;
+		let verticalDistanceAway = 0;
+
+		const actualLeft = faceBoundingBox.Left;
+		const actualRight = faceBoundingBox.Left + faceBoundingBox.Width;
+		const actualTop = faceBoundingBox.Top;
+		const actualBottom = faceBoundingBox.Top + faceBoundingBox.Height;
+
 		if (isCorrect) {
-			navigate('/winner'); // Navigate to /winner without page reload
-		} else {
-			navigate('/lost'); // Navigate to /lost without page reload
+			setStreak(prevStreak => prevStreak + 1);
 		}
+		else {
+			setStreak(0);
+
+			if (clickCoordinates.left < actualLeft) {
+				horizontalDistanceAway = actualLeft - clickCoordinates.left;
+			}
+			else if (clickCoordinates.left > actualRight) {
+				horizontalDistanceAway = clickCoordinates.left - actualRight;
+			}
+
+			if (clickCoordinates.top < actualTop) {
+				verticalDistanceAway = actualTop - clickCoordinates.top;
+			}
+			else if (clickCoordinates.top > actualBottom) {
+				verticalDistanceAway = clickCoordinates.top - actualBottom;
+			}
+		}
+
+		let distanceAway = Math.sqrt(horizontalDistanceAway ** 2 + verticalDistanceAway ** 2);
+		console.log({
+			horizontalDistanceAway,
+			verticalDistanceAway,
+			distanceAway
+		});
+
+		const totalScoreTime = SECONDS_GIVEN - TIMER_THRESHOLD;
+		let timerModifier = (secondsRemaining / totalScoreTime);
+		const distanceModifier = (1-distanceAway);
+		setAccuracy(distanceModifier);
+
+		if (timerModifier > 1) {
+			timerModifier = 1;
+		}
+
+		const score = Math.floor(
+			MAX_SCORE * timerModifier * distanceModifier
+		);
+
+		console.log({
+			secondsRemaining,
+			totalScoreTime,
+			MAX_SCORE,
+			timerModifier,
+			distanceModifier,
+			score
+		})
+
+		return score;
+	}
+
+	const routeToResultsPage = () => {
+		navigate('/results');
 	}
 
   return (
@@ -93,6 +182,9 @@ function GamePage() {
 					onClick={(event) => {
 						const clickCoordinates = getCoordinatesFromOnClickEvent(event);
 						const isCorrect = didClickCorrectFace(clickCoordinates);
+						const score = calculateScore(clickCoordinates, secondsRemaining, setAccuracy, setStreak);
+						setScore(score);
+						clearInterval(timerInterval);
 						routeToResultsPage(isCorrect);
 					}}
 					role='button'
@@ -101,15 +193,15 @@ function GamePage() {
       <section className='gamePanel'>
         <h1>Time Left</h1>
         <section className='timer'>
-          {/* <p className='time'>22</p> */}
-          <p>Don't worry, you have forever</p>
+          <p className='time'> {secondsRemaining} </p>
+          <p>Seconds</p>
         </section>
-        {/* <p className='margin'><span>Score:</span> N/A | <span>Streak:</span> 5</p> */}
+        <p className='margin'><span>Last Score:</span> {score} | <span>Streak:</span> {streak}</p>
 				<section className="stripeSeperator">
 					<div className='redStripe'></div>
 					<div className='redStripe'></div>
 				</section>
-        <h2>Where's Waldo??</h2>
+        <h2>Find This Waldo</h2>
         <section>
           <img
 						key={croppedFaceImage}
@@ -119,10 +211,6 @@ function GamePage() {
 
 						</img>
         </section>
-        <h3>Your Chosen Waldo:</h3>
-        {/* <img className='yourPickedWaldo' src={croppedFaceImage} alt="Face of the 'waldo' you picked by clicking"></img> */}
-        {/* if correct brought to you won results page otherwise other page */}
-        {/* <Link to='/winner' title='Click to confrim your waldo'>Confrim</Link> */}
       </section>
     </div>
   )
