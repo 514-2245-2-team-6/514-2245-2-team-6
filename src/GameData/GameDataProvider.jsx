@@ -19,6 +19,7 @@ export const GameDataProvider = ({ children }) => {
 	const [accuracy, setAccuracy] = useState(0);
 	const [secondsRemaining, setSecondsRemaining] = useState(SECONDS_GIVEN);
 	const [streak, setStreak] = useState(0);
+	const [hint, setHint] = useState(['', '']);
 
 	useEffect(() => {
 		async function setStateAfterAPICall() {
@@ -47,6 +48,7 @@ export const GameDataProvider = ({ children }) => {
 					accuracy, setAccuracy,
 					streak, setStreak,
 					secondsRemaining, setSecondsRemaining,
+					hint, setHint,
 					SECONDS_GIVEN, TIMER_THRESHOLD, MAX_SCORE
 				}
 			}

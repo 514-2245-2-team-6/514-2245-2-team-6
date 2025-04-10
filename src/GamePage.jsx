@@ -13,6 +13,7 @@ function GamePage() {
 		setAccuracy,
 		streak, setStreak,
 		secondsRemaining, setSecondsRemaining,
+		hint, setHint,
 		SECONDS_GIVEN, TIMER_THRESHOLD, MAX_SCORE
 	} = useContext(GameDataContext);
 
@@ -167,6 +168,50 @@ function GamePage() {
 		return score;
 	}
 
+	useEffect(() => {
+		const handleMouseMove = (event) => {
+			const cursorX = event.clientX;
+			const cursorY = event.clientY;
+
+			const actualLeft = faceBoundingBox.Left * window.innerWidth;
+			const actualRight = actualLeft + faceBoundingBox.Width * window.innerWidth;
+			const actualTop = faceBoundingBox.Top * window.innerHeight;
+			const actualBottom = actualTop + faceBoundingBox.Height * window.innerHeight;
+
+			const horizontalDistance = cursorX < actualLeft
+				? actualLeft - cursorX
+				: cursorX > actualRight
+				? cursorX - actualRight
+				: 0;
+
+			const verticalDistance = cursorY < actualTop
+				? actualTop - cursorY
+				: cursorY > actualBottom
+				? cursorY - actualBottom
+				: 0;
+
+			const distanceAway = Math.sqrt(horizontalDistance ** 2 + verticalDistance ** 2);
+
+			const proximityHint = distanceAway < 50 
+				? 'Red Hot' 
+				: distanceAway < 150 
+				? 'Warm' 
+				: 'Cold';
+
+			const sideHint = cursorX < actualLeft
+				? 'Waldo is on the left of your cursor!'
+				: cursorX > actualRight
+				? 'Waldo is on the right of your cursor!'
+				: 'Waldo is on the center of your cursor!';
+
+			setHint([proximityHint, sideHint]);
+		};
+
+		window.addEventListener('mousemove', handleMouseMove);
+
+		return () => window.removeEventListener('mousemove', handleMouseMove);
+	}, [faceBoundingBox, setHint]);
+
 	const routeToResultsPage = () => {
 		navigate('/results');
 	}
@@ -211,6 +256,13 @@ function GamePage() {
 
 						</img>
         </section>
+		<section className='hintsSection'>		
+			<h2>Hints</h2>
+			<ul>
+				<li>{hint[0]}</li>
+				<li>{hint[1]}</li>
+			</ul>
+		</section>
       </section>
     </div>
   )
