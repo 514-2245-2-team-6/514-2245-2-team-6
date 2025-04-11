@@ -168,6 +168,60 @@ function GamePage() {
 		return score;
 	}
 
+	// hint functionality, where cursor is to image of waldo
+	// Allow users to request hints for where the face is, Display hint on sidebar, Say if guess is hot or cold, Say which side of the photo the face is on
+	// want a hint array, hint[0] gives the words whether the cursor is near the face so in exact words red or hot
+	// hint[1] says which side the face is on from the cursorthe face being the cropped image aka faceboundingbox
+	// help windsurf 
+
+	const handleMouseMove = (event) => {
+		const mouse = getCoordinatesFromOnClickEvent(event);
+
+		const actualLeft = faceBoundingBox.Left;
+		const actualRight = faceBoundingBox.Left + faceBoundingBox.Width;
+		const actualTop = faceBoundingBox.Top;
+		const actualBottom = faceBoundingBox.Top + faceBoundingBox.Height;
+
+		// Calculate the distance between the mouse and the center of the box
+		const boxCenterX = (actualLeft + actualRight) / 2;
+		const boxCenterY = (actualTop + actualBottom) / 2;
+
+		const dx = mouse.left - boxCenterX;
+		const dy = mouse.top - boxCenterY;
+		const distance = Math.sqrt(dx * dx + dy * dy);
+
+		let proximityHint = '';
+		// Set the hint based on the distance
+		if (distance < 0.03) {
+			proximityHint = 'Your proximity to Waldo is: Red Hot';
+		} else if (distance < 0.08) {
+			proximityHint = 'Your proximity to Waldo is: Warm';
+		} else {
+			proximityHint = 'Your proximity to Waldo is: Cold';
+		}
+
+		let directionHint = '';
+		// Set the hint based on the direction
+		if(Math.abs(dx) > Math.abs(dy)) {
+			// If the cursor is to the left or right of the face
+			if(dx < 0) {
+				directionHint = 'Your cursor is to the left of the face';
+			} else {
+				directionHint = 'Your cursor is to the right of the face';
+			}
+		} else {
+			// If the cursor is above or below the face
+			if(dy < 0) {
+				directionHint = 'Your cursor is above the face';
+			} else {
+				directionHint = 'Your cursor is below the face';
+			}
+		}
+		// Update the hint
+		setHint([proximityHint, directionHint]);
+	};
+	
+
 	const routeToResultsPage = () => {
 		navigate('/results');
 	}
@@ -188,6 +242,7 @@ function GamePage() {
 						clearInterval(timerInterval);
 						routeToResultsPage(isCorrect);
 					}}
+					onMouseMove={handleMouseMove}
 					role='button'
 				></img>
 			</section>
@@ -215,8 +270,8 @@ function GamePage() {
 		<section className='hintsSection'>		
 			<h2>Hints</h2>
 			<ul>
-				{/* <li>{hint[0]}</li>
-				<li>{hint[1]}</li> */}
+				<li>{hint[0]}</li>
+				<li>{hint[1]}</li>
 			</ul>
 		</section>
       </section>
