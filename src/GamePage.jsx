@@ -217,8 +217,16 @@ function GamePage() {
 				directionHint = 'Your cursor is below the face';
 			}
 		}
-		// Update the hint
-		setHint([proximityHint, directionHint]);
+		// Update the hint if it's different from the previous hint
+		setHint(prev => {
+			// If the hint is the same as the previous hint, return the previous hint
+			if(prev[0] === proximityHint && prev[1] === directionHint) {
+				return prev;
+			// Else If the hint is different from the previous hint, return the new hint
+			} else {
+				return [proximityHint, directionHint];
+			}
+		});
 	};
 	
 
@@ -267,13 +275,16 @@ function GamePage() {
 
 						</img>
         </section>
-		<section className='hintsSection'>		
-			<h2>Hints</h2>
-			<ul>
-				<li>{hint[0]}</li>
-				<li>{hint[1]}</li>
-			</ul>
-		</section>
+		// Display the hints if they exist
+		{hint[0] && hint[1] && (
+			<section className='hintsSection'>		
+				<h2>Hints</h2>
+				<ul>
+					<li>{hint[0]}</li>
+					<li>{hint[1]}</li>
+				</ul>
+			</section>
+		)}
       </section>
     </div>
   )
