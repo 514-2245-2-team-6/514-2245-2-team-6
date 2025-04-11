@@ -168,12 +168,7 @@ function GamePage() {
 		return score;
 	}
 
-	// hint functionality, where cursor is to image of waldo
-	// Allow users to request hints for where the face is, Display hint on sidebar, Say if guess is hot or cold, Say which side of the photo the face is on
-	// want a hint array, hint[0] gives the words whether the cursor is near the face so in exact words red or hot
-	// hint[1] says which side the face is on from the cursorthe face being the cropped image aka faceboundingbox
-	// help windsurf 
-
+	// hint functionality
 	const handleMouseMove = (event) => {
 		const mouse = getCoordinatesFromOnClickEvent(event);
 
