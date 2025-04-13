@@ -18,7 +18,11 @@ function LostResultsPage() {
     <div className='losttResultsPage'>
       <section className='results'>
         <h1>Your Results</h1>
-        <h2>Take a look at how well you did!</h2>
+        <h2>{
+					accuracy >= 1 ?
+						'You found Waldo!' :
+						'You did not find Waldo.'
+				}</h2>
         <p>Your Score: <span>{score}/10</span></p>
         <p>Your Streak: {streak}</p>
         <p>Time Taken: {SECONDS_GIVEN - secondsRemaining} seconds</p>

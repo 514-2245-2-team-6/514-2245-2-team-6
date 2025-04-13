@@ -20,19 +20,19 @@ export const GameDataProvider = ({ children }) => {
 	const [secondsRemaining, setSecondsRemaining] = useState(SECONDS_GIVEN);
 	const [streak, setStreak] = useState(0);
 	const [hint, setHint] = useState(['', '']);
+	const lambdaExecutor = new LambdaExecutor(API_GATEWAY_BASE_URL);
+
+	const setStateAfterAPICall = async () => {
+		const result = await lambdaExecutor.getRandomCroppedFace();
+		const boundingBox = JSON.parse(result['bounding_box']);
+
+		setCurrentCrowdImage(CURRENT_CROWD_IMAGE_URL);
+		setCroppedFaceImage(CROPPED_FACE_IMAGE_URL);
+		setFaceBoundingBox(boundingBox);
+		setIsLoading(false);
+	};
 
 	useEffect(() => {
-		async function setStateAfterAPICall() {
-			const lambdaExecutor = new LambdaExecutor(API_GATEWAY_BASE_URL);
-			const result = await lambdaExecutor.getRandomCroppedFace();
-			const boundingBox = JSON.parse(result['bounding_box']);
-
-			setCurrentCrowdImage(CURRENT_CROWD_IMAGE_URL);
-			setCroppedFaceImage(CROPPED_FACE_IMAGE_URL);
-			setFaceBoundingBox(boundingBox);
-			setIsLoading(false);
-		}
-
 		setStateAfterAPICall();
 	}, []);
 
@@ -40,6 +40,7 @@ export const GameDataProvider = ({ children }) => {
 		<GameDataContext.Provider
 			value={
 				{
+					lambdaExecutor,
 					isLoading, setIsLoading,
 					currentCrowdImage, setCurrentCrowdImage,
 					croppedFaceImage, setCroppedFaceImage,
@@ -49,7 +50,8 @@ export const GameDataProvider = ({ children }) => {
 					streak, setStreak,
 					secondsRemaining, setSecondsRemaining,
 					hint, setHint,
-					SECONDS_GIVEN, TIMER_THRESHOLD, MAX_SCORE
+					SECONDS_GIVEN, TIMER_THRESHOLD, MAX_SCORE,
+					setStateAfterAPICall
 				}
 			}
 		>

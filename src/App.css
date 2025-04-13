@@ -86,11 +86,16 @@
 
 }
 
+section.magnifyingGlass {
+	margin-top: 20px;
+}
+
 .waldoimg {
   border-radius: 50%;
 	width: 211px;
 	height: 211px;
   border: 7px solid #D11635;
+	margin: 0;
 }
 
 .uploadSection {

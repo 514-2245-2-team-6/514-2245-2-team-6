@@ -30,6 +30,11 @@ html, body {
 }
 
 .results {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		align-content: center;
     border: 7px solid #0D4072;
     border-radius: 24px;
     width: 80vw;

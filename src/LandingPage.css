@@ -1,0 +1,32 @@
+
+
+div.uploadSection {
+	margin-top: 60px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+div.uploadSection div.heading {
+	margin-top: 20px;
+	margin-bottom: 10px;
+}
+div.uploadSection div.heading * {
+	margin: 0;
+}
+div.uploadSection div.heading p {
+	margin: 0;
+	font-size: 14px;
+}
+div.uploadSection input {
+	color: #000000;
+}
+
+div.landingPage {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 0;
+}

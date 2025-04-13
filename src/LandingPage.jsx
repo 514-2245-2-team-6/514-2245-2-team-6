@@ -2,11 +2,14 @@ import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import LambdaExecutor from './LambdaFunctions';
 import { useContext, useState } from "react";
 import GameDataContext from "./GameData/GameDataContext";
+import './LandingPage.css';
 
 function LandingPage() {
 	const {
 		currentCrowdImage,
 		croppedFaceImage,
+		lambdaExecutor,
+		setStateAfterAPICall
 	} = useContext(GameDataContext);
 
 	const [selectedFile, setSelectedFile] = useState(null);
@@ -21,25 +24,26 @@ function LandingPage() {
 			setMessage("Please select an image first.");
 			return;
 		}
-	
+
 		const reader = new FileReader();
 		reader.onloadend = async () => {
 			try {
 				const base64Image = reader.result.split(",")[1];
 				const payload = { image_data: base64Image };
-	
+
 				const result = await lambdaExecutor.uploadImage(payload);
+				await setStateAfterAPICall();
 				console.log("Upload Lambda result:", result);
-	
+
 				setMessage(result.body || "Upload successful!");
 			} catch (error) {
 				console.error("Upload failed:", error);
 				setMessage("Failed to upload image.");
 			}
 		};
-	
+
 		reader.readAsDataURL(selectedFile);
-	};	
+	};
 
 	console.log({croppedFaceImage});
 
@@ -56,7 +60,7 @@ function LandingPage() {
 				Your <span>Goal</span> is to find "Waldo" before the timer runs out!
 			</p>
 			<p>You have 30 seconds...</p>
-			<section>
+			<section className="magnifyingGlass">
 				<img
 					key={croppedFaceImage}
 					className="waldoimg"
@@ -71,7 +75,10 @@ function LandingPage() {
 			</Link>
 
 			<div className="uploadSection">
+				<div className="heading">
   				<h3>Want to use your own image?</h3>
+					<p>(Must be PNG format and less than 1 MB)</p>
+				</div>
   				<input type="file" accept="image/*" onChange={handleFileChange} />
   				<button className="uploadButton" onClick={handleUpload}>Upload Custom Image</button>
   				{message && <p style={{ color: 'white' }}>{message}</p>}
