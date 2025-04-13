@@ -20,6 +20,7 @@ function GamePage() {
 	const navigate = useNavigate(); // Hook to access history
 
 	const [timerInterval, setTimerInterval] = useState(null);
+	const [showHint, setShowHint] = useState(false);
 
 	// Starts the timer
 	useEffect(() => {
@@ -185,33 +186,44 @@ function GamePage() {
 		const dy = mouse.top - boxCenterY;
 		const distance = Math.sqrt(dx * dx + dy * dy);
 
+		console.log(`mouse: ${mouse.left}, ${mouse.top}`);
+		console.log(`boxCenterX: ${boxCenterX}, boxCenterY: ${boxCenterY}`);
+		console.log(`distance: ${distance}`);
+		console.log(`dx: ${dx}, dy: ${dy}`);
+
 		let proximityHint = '';
 		// Set the hint based on the distance
 		if (distance < 0.03) {
-			proximityHint = 'Your proximity to Waldo is: Red Hot';
-		} else if (distance < 0.08) {
-			proximityHint = 'Your proximity to Waldo is: Warm';
+			proximityHint = 'Red Hot!';
+		} else if (distance < 0.12) {
+			proximityHint = 'Warmer';
 		} else {
-			proximityHint = 'Your proximity to Waldo is: Cold';
+			proximityHint = 'Cold';
 		}
+
+		console.log(`proximityHint: ${proximityHint}`);
 
 		let directionHint = '';
 		// Set the hint based on the direction
 		if(Math.abs(dx) > Math.abs(dy)) {
 			// If the cursor is to the left or right of the face
 			if(dx < 0) {
-				directionHint = 'Your cursor is to the left of the face';
+				directionHint = 'To the right of your cursor';
 			} else {
-				directionHint = 'Your cursor is to the right of the face';
+				directionHint = 'To the left of your cursor';
 			}
 		} else {
 			// If the cursor is above or below the face
 			if(dy < 0) {
-				directionHint = 'Your cursor is above the face';
+				directionHint = 'Below your cursor';
 			} else {
-				directionHint = 'Your cursor is below the face';
+				directionHint = 'Above your cursor';
 			}
 		}
+
+		console.log(`directionHint: ${directionHint}`);
+
+
 		// Update the hint if it's different from the previous hint
 		setHint(prev => {
 			// If the hint is the same as the previous hint, return the previous hint
@@ -223,7 +235,7 @@ function GamePage() {
 			}
 		});
 	};
-	
+
 
 	const routeToResultsPage = () => {
 		navigate('/results');
@@ -270,16 +282,29 @@ function GamePage() {
 
 						</img>
         </section>
-		// Display the hints if they exist
-		{hint[0] && hint[1] && (
-			<section className='hintsSection'>		
-				<h2>Hints</h2>
-				<ul>
-					<li>{hint[0]}</li>
-					<li>{hint[1]}</li>
-				</ul>
-			</section>
-		)}
+				{showHint ||
+					<button
+						className='hintButton'
+						onClick={() => {
+							setShowHint(true);
+						}}
+					>Reveal Hints</button>
+				}
+				{hint[0] && hint[1] && showHint && (
+					<section className='hintsSection'>
+						<h2>Hints</h2>
+						<p
+							className={
+								hint[0] === 'Red Hot!' ?
+									'redHotHint' :
+									hint[0] === 'Warmer' ?
+										'warmerHint' :
+										'coldHint'
+							}
+						>{hint[0]}</p>
+						<p>{hint[1]}</p>
+					</section>
+				)}
       </section>
     </div>
   )
