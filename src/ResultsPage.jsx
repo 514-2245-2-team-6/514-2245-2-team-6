@@ -12,6 +12,7 @@ function LostResultsPage() {
 		accuracy,
 		streak,
 		secondsRemaining,
+		setStateAfterAPICall,
 	} = useContext(GameDataContext);
 
   return (
@@ -27,7 +28,13 @@ function LostResultsPage() {
         <p>Your Streak: {streak}</p>
         <p>Time Taken: {SECONDS_GIVEN - secondsRemaining} seconds</p>
         <p>Accuracy: {Math.round(accuracy * 100)}%</p>
-        <Link to='/' title='Click to play again'>Play Again</Link>
+        <Link
+					to='/'
+					title='Click to play again'
+					onClick={() => {
+						setStateAfterAPICall();
+					}}
+				>Play Again</Link>
         <img src={waldo} alt='clipart of waldo'></img>
       </section>
       <div className='redStripee'></div>

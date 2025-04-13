@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import LambdaExecutor from "../LambdaFunctions";
-import placeholderCurrentCrowdImage from "../assets/PlaceholderBackgroundImg.jpeg";
-import placeholderCroppedFaceImage from "../assets/waldoPlaceholderImg.jpeg";
+import placeholderCurrentCrowdImage from "../assets/waldo-stripes-placeholder-background.png";
+import placeholderCroppedFaceImage from "../assets/choosing-waldo-placeholder-icon.png";
 import GameDataContext from "./GameDataContext";
 import { API_GATEWAY_BASE_URL, CROPPED_FACE_IMAGE_URL, CURRENT_CROWD_IMAGE_URL } from "./aws-constants";
 
@@ -23,6 +23,11 @@ export const GameDataProvider = ({ children }) => {
 	const lambdaExecutor = new LambdaExecutor(API_GATEWAY_BASE_URL);
 
 	const setStateAfterAPICall = async () => {
+		setIsLoading(true);
+		setCurrentCrowdImage(placeholderCurrentCrowdImage);
+		setCroppedFaceImage(placeholderCroppedFaceImage);
+		setFaceBoundingBox(undefined);
+
 		const result = await lambdaExecutor.getRandomCroppedFace();
 		const boundingBox = JSON.parse(result['bounding_box']);
 
