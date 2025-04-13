@@ -32,9 +32,23 @@
   background-color: #FFFFFF;
   height: 100vh;
   text-align: center;
-  padding: 20px;
+  /* padding: 20px; */
   box-sizing: border-box;
   /* overflow: auto; */
+}
+
+.hintsSection ul, .hintsSection li {
+  color: #000000;
+  margin: 0 auto;
+}
+
+.hintsSection ul {
+  text-align: center;
+  width: 80%;
+}
+
+.hintsSection li {
+  text-align: left;
 }
 
 .gamePanel h1 {
