@@ -1,3 +1,6 @@
+# Dev Enviornment Variables
+.env
+
 # Logs
 logs
 *.log
