@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
-
-import { useContext } from "react";
+import LambdaExecutor from './LambdaFunctions';
+import { useContext, useState } from "react";
 import GameDataContext from "./GameData/GameDataContext";
 
 function LandingPage() {
@@ -8,6 +8,38 @@ function LandingPage() {
 		currentCrowdImage,
 		croppedFaceImage,
 	} = useContext(GameDataContext);
+
+	const [selectedFile, setSelectedFile] = useState(null);
+	const [message, setMessage] = useState("");
+
+	const handleFileChange = (event) => {
+		setSelectedFile(event.target.files[0]);
+	};
+
+	const handleUpload = async () => {
+		if (!selectedFile) {
+			setMessage("Please select an image first.");
+			return;
+		}
+	
+		const reader = new FileReader();
+		reader.onloadend = async () => {
+			try {
+				const base64Image = reader.result.split(",")[1];
+				const payload = { image_data: base64Image };
+	
+				const result = await lambdaExecutor.uploadImage(payload);
+				console.log("Upload Lambda result:", result);
+	
+				setMessage(result.body || "Upload successful!");
+			} catch (error) {
+				console.error("Upload failed:", error);
+				setMessage("Failed to upload image.");
+			}
+		};
+	
+		reader.readAsDataURL(selectedFile);
+	};	
 
 	console.log({croppedFaceImage});
 
@@ -37,6 +69,14 @@ function LandingPage() {
 			<Link to="/game" title="Click to play the Where's Waldo game">
 				Play Now
 			</Link>
+
+			<div className="uploadSection">
+  				<h3>Want to use your own image?</h3>
+  				<input type="file" accept="image/*" onChange={handleFileChange} />
+  				<button className="uploadButton" onClick={handleUpload}>Upload Custom Image</button>
+  				{message && <p style={{ color: 'white' }}>{message}</p>}
+			</div>
+
 		</div>
 	);
 }

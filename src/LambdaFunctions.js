@@ -58,6 +58,11 @@ class LambdaExecutor {
   async verifyFaceSelection(selectionData) {
     return this.invokeLambda('verifyFaceSelection', selectionData);
   }
+
+  // Another example: calling uploadImage Lambda function
+  async uploadImage(imageData) {
+    return this.invokeLambda('uploadImage', imageData);
+  }
 }
 
 export default LambdaExecutor;

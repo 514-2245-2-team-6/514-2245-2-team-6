@@ -92,3 +92,36 @@
 	height: 211px;
   border: 7px solid #D11635;
 }
+
+.uploadSection {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.uploadSection h3 {
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  margin-bottom: 10px;
+}
+
+.uploadSection input[type="file"] {
+  margin-bottom: 12px;
+  color: white;
+}
+
+.uploadButton {
+  color: #000000;
+  background-color: #ffffff;
+  border: 5px solid #D11635;
+  border-radius: 100px;
+  padding: 10px 30px;
+  cursor: pointer;
+  transition: transform 0.1s ease-in-out;
+}
+
+.uploadButton:hover {
+  transform: scale(1.05);
+  background-color: #f4f4f4;
+}
